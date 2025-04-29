@@ -13,6 +13,8 @@ const Login = () => {
   const [password, setPassword] = useState("")
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
+  const baseURL = import.meta.env.VITE_API_BASE_URL || "https://amshc-backend.onrender.com";
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -21,9 +23,11 @@ const Login = () => {
 
     // ✅ Log to verify value is picked up
   console.log("🌐 API URL from env:", import.meta.env.VITE_API_BASE_URL);
+  console.log("✅ VITE_API_BASE_URL =", import.meta.env.VITE_API_BASE_URL);
+
   
     try {
-      const response = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/auth/login`, {//please work//
+      const response = await axios.post(`${baseURL}/api/auth/login`, {//please work//
         email,
         password,
       });

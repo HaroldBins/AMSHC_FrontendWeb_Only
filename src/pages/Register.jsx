@@ -13,6 +13,8 @@ function Register() {
   const [confirmPassword, setConfirmPassword] = useState("")
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
+  const baseURL = import.meta.env.VITE_API_BASE_URL || "https://amshc-backend.onrender.com";
+
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -28,7 +30,7 @@ function Register() {
   console.log("🌐 API URL from env:", import.meta.env.VITE_API_BASE_URL);
 
     try {
-      await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/auth/register`, {
+      await axios.post(`${baseURL}/api/auth/register`, {
 
         fullName,
         email,
