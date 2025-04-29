@@ -24,6 +24,9 @@ function Register() {
     setLoading(true)
     setError("")
 
+    // ✅ Log to verify value is picked up
+  console.log("🌐 API URL from env:", import.meta.env.VITE_API_BASE_URL);
+
     try {
       await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/auth/register`, {
 
