@@ -4,7 +4,7 @@ import axios from "axios";
 
 const BookingHistory = () => {
   const [appointments, setAppointments] = useState([]);
-  const baseURL = import.meta.env.VITE_API_BASE_URL;
+  const baseURL = process.env.REACT_APP_API_BASE_URL;
 
 
   useEffect(() => {

@@ -6,7 +6,7 @@ function Clinics() {
   const [clinicAddress, setClinicAddress] = useState("");
   const [editingClinic, setEditingClinic] = useState(null);
 
-  const apiUrl = `${import.meta.env.VITE_API_BASE_URL}/api/clinics`;
+  const apiUrl = `${process.env.REACT_APP_API_BASE_URL}/api/clinics`;
   const token = localStorage.getItem("token");
 
   const fetchClinics = async () => {

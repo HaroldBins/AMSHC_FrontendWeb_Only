@@ -1,44 +1,47 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { useNavigate } from "react-router-dom"
-import axios from "axios"
-import { ArrowLeft, Mail, Lock } from "react-feather"
-
-
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { ArrowLeft, Mail, Lock } from "react-feather";
+import config from "../config";
 
 const Login = () => {
-  const navigate = useNavigate()
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
-  const [error, setError] = useState("")
-  const [loading, setLoading] = useState(false)
-  const baseURL = import.meta.env.VITE_API_BASE_URL || "https://amshc-backend.onrender.com";
+  const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+ 
+  
 
+
+ 
+
+
+  
+  const baseURL = process.env.REACT_APP_API_BASE_URL || "http://localhost:8080";
+
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     setError("");
 
-    // ✅ Log to verify value is picked up
-  console.log("🌐 API URL from env:", import.meta.env.VITE_API_BASE_URL);
-  console.log("✅ VITE_API_BASE_URL =", import.meta.env.VITE_API_BASE_URL);
-
-  
     try {
-      const response = await axios.post(`${baseURL}/api/auth/login`, {//please work//
+      const response = await axios.post(`${baseURL}/api/auth/login`, {
         email,
         password,
       });
-  
+
       if (response.data.token) {
         localStorage.setItem("token", response.data.token);
         localStorage.setItem("userId", response.data.userId);
         localStorage.setItem("role", response.data.role);
         localStorage.setItem("fullName", response.data.fullName || "");
         localStorage.setItem("avatarUrl", response.data.avatarUrl || "");
-  
+
         console.log("✅ Login successful. User ID:", response.data.userId);
         navigate("/dashboard");
       } else {
@@ -51,12 +54,12 @@ const Login = () => {
       setLoading(false);
     }
   };
-  
-  
+
+  console.log("✅ ENV:", process.env.REACT_APP_API_BASE_URL);
+
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-tr from-blue-900 to-blue-700 relative px-4">
-      {/* Decorative background elements */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute top-0 left-0 w-96 h-96 bg-blue-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
         <div className="absolute top-0 right-0 w-96 h-96 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
@@ -65,7 +68,6 @@ const Login = () => {
       </div>
 
       <div className="relative bg-white p-8 rounded-xl shadow-2xl w-full max-w-sm backdrop-blur-sm bg-opacity-95 border border-white border-opacity-20">
-        {/* Back to Home Button */}
         <button
           onClick={() => navigate("/")}
           className="absolute top-4 left-4 text-blue-700 hover:text-blue-900 transition-colors duration-200 flex items-center gap-1 text-sm font-medium"
@@ -84,7 +86,6 @@ const Login = () => {
         )}
 
         <form onSubmit={handleSubmit} className="space-y-5">
-          {/* Email */}
           <div>
             <label htmlFor="email" className="block text-blue-800 font-medium mb-1 text-sm">
               Email
@@ -105,7 +106,6 @@ const Login = () => {
             </div>
           </div>
 
-          {/* Password */}
           <div>
             <label htmlFor="password" className="block text-blue-800 font-medium mb-1 text-sm">
               Password
@@ -134,7 +134,6 @@ const Login = () => {
             </div>
           </div>
 
-          {/* Submit */}
           <button
             type="submit"
             className="w-full bg-blue-800 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 active:translate-y-0 mt-6"
@@ -180,9 +179,7 @@ const Login = () => {
         </p>
       </div>
     </div>
-  )
+  );
+};
 
-  
-}
-
-export default Login
+export default Login;

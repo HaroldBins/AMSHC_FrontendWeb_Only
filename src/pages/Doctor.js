@@ -13,7 +13,7 @@ const Doctor = () => {
   const [isAddDoctorOpen, setIsAddDoctorOpen] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState(null)
-  const baseURL = import.meta.env.VITE_API_BASE_URL;
+  const baseURL = process.env.REACT_APP_API_BASE_URL;
 
 
   // Fetching doctor data from API

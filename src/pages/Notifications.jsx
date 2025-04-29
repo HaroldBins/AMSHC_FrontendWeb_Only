@@ -9,7 +9,7 @@ const Notifications = () => {
 
   const userId = localStorage.getItem("userId");
   const token = localStorage.getItem("token");
-  const baseURL = import.meta.env.VITE_API_BASE_URL;
+  const baseURL = process.env.REACT_APP_API_BASE_URL;
 
 
   const { updateNotificationCount } = useContext(NotificationContext);
@@ -47,7 +47,7 @@ const Notifications = () => {
   };
 
   const deleteNotification = (id) => {
-    axios.delete(`https://amshc-backend.onrender.com/api/notifications/${id}?userId=${userId}`, {
+    axios.delete(`${baseURL}/api/notifications/${id}?userId=${userId}`, {
       headers: { Authorization: `Bearer ${token}` }
     })
     .then(() => {
