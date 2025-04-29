@@ -90,12 +90,18 @@ function TopNav() {
         </Link>
 
         <div className="flex items-center space-x-2">
-          <img
-            src={avatarSrc}
-            alt="Profile"
-            className="w-10 h-10 rounded-full object-cover border border-white"
-            onError={(e) => { e.target.onerror = null; e.target.src = '/default-avatar.png'; }}
-          />
+        <img
+  src={avatarSrc}
+  alt="Profile"
+  className="w-10 h-10 rounded-full object-cover border border-white"
+  onError={(e) => {
+    if (!e.target.src.includes('default-avatar.png')) {
+      e.target.onerror = null; // prevent infinite loop
+      e.target.src = '/default-avatar.png';
+    }
+  }}
+/>
+
           <span className="text-sm font-medium">{profile.fullName}</span>
         </div>
 
