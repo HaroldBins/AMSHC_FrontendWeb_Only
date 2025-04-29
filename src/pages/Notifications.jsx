@@ -2,12 +2,15 @@ import React, { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
 import { NotificationContext } from '../context/NotificationContext';
 
+
 const Notifications = () => {
   const [notifications, setNotifications] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const userId = localStorage.getItem("userId");
   const token = localStorage.getItem("token");
+  const baseURL = import.meta.env.VITE_API_BASE_URL;
+
 
   const { updateNotificationCount } = useContext(NotificationContext);
 
@@ -15,7 +18,7 @@ const Notifications = () => {
     if (!userId || !token) return;
     setLoading(true);
 
-    axios.get(`https://amshc-backend.onrender.com/api/notifications/user/${userId}`, {
+    axios.get(`${baseURL}/api/notifications/user/${userId}`, {
       headers: { Authorization: `Bearer ${token}` },
     })
     .then((res) => {
@@ -32,7 +35,7 @@ const Notifications = () => {
   }, []);
 
   const markAsRead = (id) => {
-    axios.put(`https://amshc-backend.onrender.com/api/notifications/read/${id}`, {}, {
+    axios.put(`${baseURL}/api/notifications/read/${id}`, {}, {
       headers: { Authorization: `Bearer ${token}` },
     })
     .then(() => {

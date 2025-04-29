@@ -14,9 +14,11 @@ const RegisterDoctor = () => {
   });
 
   const [message, setMessage] = useState('');
+  const baseURL = import.meta.env.VITE_API_BASE_URL;
+
 
   useEffect(() => {
-    axios.get('https://amshc-backend.onrender.com/api/clinics')
+    axios.get(`${baseURL}/api/clinics`)
       .then(res => setClinics(res.data.content || res.data))
       .catch(err => console.error('Failed to fetch clinics', err));
   }, []);
@@ -27,7 +29,7 @@ const RegisterDoctor = () => {
 
   const handleRegister = (e) => {
     e.preventDefault();
-    axios.post('https://amshc-backend.onrender.com/api/auth/register-doctor', form)
+    axios.post(`${baseURL}/api/auth/register-doctor`, form)
       .then(() => {
         setMessage('✅ Doctor registered successfully!');
         setForm({

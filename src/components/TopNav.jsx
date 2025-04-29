@@ -14,18 +14,19 @@ function TopNav() {
 
   const { notificationCount, updateNotificationCount } = useContext(NotificationContext);
   const [profile, setProfile] = useState({ fullName: '', profilePictureUrl: '' });
+  const baseURL = import.meta.env.VITE_API_BASE_URL;
 
   useEffect(() => {
     if (!userId || !token) return;
 
     const fetchProfileAndNotifications = async () => {
       try {
-        const profileRes = await axios.get(`https://amshc-backend.onrender.com/api/auth/profile/${userId}`, {
+        const profileRes = await axios.get(`${baseURL}/api/auth/profile/${userId}`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         setProfile(profileRes.data);
 
-        const notifRes = await axios.get(`https://amshc-backend.onrender.com/api/notifications/user/${userId}`, {
+        const notifRes = await axios.get(`${baseURL}/api/notifications/user/${userId}`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         const unread = notifRes.data.filter(n => !n.read).length;
@@ -45,7 +46,7 @@ function TopNav() {
   };
 
   const avatarSrc = profile.profilePictureUrl
-    ? `https://amshc-backend.onrender.com/${profile.profilePictureUrl.replace(/\\/g, '/')}`
+    ? `${baseURL}/${profile.profilePictureUrl.replace(/\\/g, '/')}`
     : '/default-avatar.png';
 
   return (

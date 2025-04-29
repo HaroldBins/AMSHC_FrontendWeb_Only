@@ -4,12 +4,14 @@ import axios from "axios";
 
 const BookingHistory = () => {
   const [appointments, setAppointments] = useState([]);
+  const baseURL = import.meta.env.VITE_API_BASE_URL;
+
 
   useEffect(() => {
     const patientId = localStorage.getItem("userId"); // 🧠 dynamic patient ID
     const token = localStorage.getItem("token");
 
-    axios.get(`https://amshc-backend.onrender.com/api/appointments/patient/${patientId}`, {
+    axios.get(`${baseURL}/api/appointments/patient/${patientId}`, {
       headers: {
         Authorization: `Bearer ${token}`
       }
@@ -21,7 +23,7 @@ const BookingHistory = () => {
   const cancelAppointment = (id) => {
     const token = localStorage.getItem("token");
 
-    axios.put(`https://amshc-backend.onrender.com/api/appointments/cancel/${id}`, {}, {
+    axios.put(`${baseURL}/api/appointments/cancel/${id}`, {}, {
       headers: {
         Authorization: `Bearer ${token}`
       }

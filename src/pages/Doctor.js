@@ -13,6 +13,8 @@ const Doctor = () => {
   const [isAddDoctorOpen, setIsAddDoctorOpen] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState(null)
+  const baseURL = import.meta.env.VITE_API_BASE_URL;
+
 
   // Fetching doctor data from API
   useEffect(() => {
@@ -23,7 +25,7 @@ const Doctor = () => {
 
         // Check if token exists before making the request
         if (token) {
-          const response = await axios.get("https://amshc-backend.onrender.com/api/doctors", {
+          const response = await axios.get(`${baseURL}/api/doctors`, {
             headers: {
               Authorization: `Bearer ${token}`, // Ensure token is in the request headers
             },
@@ -51,7 +53,7 @@ const Doctor = () => {
       const token = localStorage.getItem("token") // Get token from localStorage
       console.log("Token being sent:", token) // Log the token to check if it's being fetched properly
 
-      const response = await axios.post("https://amshc-backend.onrender.com/api/doctors", doctor, {
+      const response = await axios.post(`${baseURL}/api/doctors`, doctor, {
         headers: {
           Authorization: `Bearer ${token}`, // Ensure token is being sent correctly
         },

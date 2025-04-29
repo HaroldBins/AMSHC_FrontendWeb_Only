@@ -4,11 +4,13 @@ import axios from "axios";
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
+  const baseURL = import.meta.env.VITE_API_BASE_URL;
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("https://amshc-backend.onrender.com/api/auth/forgot-password", { email });
+      await axios.post(`${baseURL}/api/auth/forgot-password`, { email });
       setMessage("Code sent! Check your email.");
     } catch (error) {
       setMessage("Failed to send reset code.");

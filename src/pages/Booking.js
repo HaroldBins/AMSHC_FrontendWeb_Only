@@ -12,8 +12,10 @@ function Booking() {
   const [patientName, setPatientName] = useState("");
   const [success, setSuccess] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  
 
-  const api = "https://amshc-backend.onrender.com";
+
+  const api = import.meta.env.VITE_API_BASE_URL;
   const patientId = localStorage.getItem("userId");
   const token = localStorage.getItem("token");
 
