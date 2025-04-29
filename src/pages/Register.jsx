@@ -25,7 +25,8 @@ function Register() {
     setError("")
 
     try {
-      await axios.post("https://amshc-backend.onrender.com/api/auth/register", {
+      await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/auth/register`, {
+
         fullName,
         email,
         password,

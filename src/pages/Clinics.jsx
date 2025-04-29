@@ -6,7 +6,7 @@ function Clinics() {
   const [clinicAddress, setClinicAddress] = useState("");
   const [editingClinic, setEditingClinic] = useState(null);
 
-  const apiUrl = 'https://amshc-backend.onrender.com/api/clinics';
+  const apiUrl = `${import.meta.env.VITE_API_BASE_URL}/api/clinics`;
   const token = localStorage.getItem("token");
 
   const fetchClinics = async () => {

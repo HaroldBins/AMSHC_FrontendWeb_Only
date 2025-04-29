@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom"
 import axios from "axios"
 import { ArrowLeft, Mail, Lock } from "react-feather"
 
+
+
 const Login = () => {
   const navigate = useNavigate()
   const [email, setEmail] = useState("")
@@ -18,18 +20,17 @@ const Login = () => {
     setError("");
   
     try {
-      const response = await axios.post("https://amshc-backend.onrender.com/api/auth/login", {
+      const response = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/auth/login`, {
         email,
         password,
       });
   
       if (response.data.token) {
-        // ✅ Store session and profile info
         localStorage.setItem("token", response.data.token);
         localStorage.setItem("userId", response.data.userId);
         localStorage.setItem("role", response.data.role);
-        localStorage.setItem("fullName", response.data.fullName || ""); // fallback if missing
-        localStorage.setItem("avatarUrl", response.data.avatarUrl || ""); // fallback if missing
+        localStorage.setItem("fullName", response.data.fullName || "");
+        localStorage.setItem("avatarUrl", response.data.avatarUrl || "");
   
         console.log("✅ Login successful. User ID:", response.data.userId);
         navigate("/dashboard");
@@ -43,6 +44,7 @@ const Login = () => {
       setLoading(false);
     }
   };
+  
   
 
   return (
