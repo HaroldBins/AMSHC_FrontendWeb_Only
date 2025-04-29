@@ -25,7 +25,7 @@ function Register() {
     setError("")
 
     try {
-      await axios.post("http://localhost:8080/api/auth/register", {
+      await axios.post("https://amshc-backend.onrender.com/api/auth/register", {
         fullName,
         email,
         password,

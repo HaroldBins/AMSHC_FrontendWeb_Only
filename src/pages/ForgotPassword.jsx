@@ -8,7 +8,7 @@ const ForgotPassword = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:8080/api/auth/forgot-password", { email });
+      await axios.post("https://amshc-backend.onrender.com/api/auth/forgot-password", { email });
       setMessage("Code sent! Check your email.");
     } catch (error) {
       setMessage("Failed to send reset code.");

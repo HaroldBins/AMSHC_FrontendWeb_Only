@@ -18,7 +18,7 @@ const Login = () => {
     setError("");
   
     try {
-      const response = await axios.post("http://localhost:8080/api/auth/login", {
+      const response = await axios.post("https://amshc-backend.onrender.com/api/auth/login", {
         email,
         password,
       });

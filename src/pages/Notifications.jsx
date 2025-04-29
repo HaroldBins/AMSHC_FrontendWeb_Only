@@ -15,7 +15,7 @@ const Notifications = () => {
     if (!userId || !token) return;
     setLoading(true);
 
-    axios.get(`http://localhost:8080/api/notifications/user/${userId}`, {
+    axios.get(`https://amshc-backend.onrender.com/api/notifications/user/${userId}`, {
       headers: { Authorization: `Bearer ${token}` },
     })
     .then((res) => {
@@ -32,7 +32,7 @@ const Notifications = () => {
   }, []);
 
   const markAsRead = (id) => {
-    axios.put(`http://localhost:8080/api/notifications/read/${id}`, {}, {
+    axios.put(`https://amshc-backend.onrender.com/api/notifications/read/${id}`, {}, {
       headers: { Authorization: `Bearer ${token}` },
     })
     .then(() => {
@@ -44,7 +44,7 @@ const Notifications = () => {
   };
 
   const deleteNotification = (id) => {
-    axios.delete(`http://localhost:8080/api/notifications/${id}?userId=${userId}`, {
+    axios.delete(`https://amshc-backend.onrender.com/api/notifications/${id}?userId=${userId}`, {
       headers: { Authorization: `Bearer ${token}` }
     })
     .then(() => {

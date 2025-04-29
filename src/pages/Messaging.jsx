@@ -23,12 +23,12 @@ const Messaging = () => {
     const fetchInitialData = async () => {
       try {
         const [userRes, usersRes] = await Promise.all([
-          axios.get(`http://localhost:8080/api/user/me`, {
+          axios.get(`https://amshc-backend.onrender.com/api/user/me`, {
             headers: { Authorization: `Bearer ${token}` }
           }),
           axios.get(role === 'PATIENT'
-            ? 'http://localhost:8080/api/doctors'
-            : `http://localhost:8080/api/messages/chat-partners/${userId}`, {
+            ? 'https://amshc-backend.onrender.com/api/doctors'
+            : `https://amshc-backend.onrender.com/api/messages/chat-partners/${userId}`, {
             headers: { Authorization: `Bearer ${token}` }
           })
         ]);
@@ -45,7 +45,7 @@ const Messaging = () => {
   const fetchMessages = useCallback(async () => {
     if (!selectedUser) return;
     try {
-      const res = await axios.get('http://localhost:8080/api/messages/conversation', {
+      const res = await axios.get('https://amshc-backend.onrender.com/api/messages/conversation', {
         params: {
           user1: userId,
           user2: selectedUser.userId || selectedUser.id,
@@ -115,7 +115,7 @@ const Messaging = () => {
     scrollToBottom();
 
     try {
-      await axios.post('http://localhost:8080/api/messages/send', {
+      await axios.post('https://amshc-backend.onrender.com/api/messages/send', {
         senderId: userId,
         receiverId: selectedUser.userId || selectedUser.id,
         senderRole: role,

@@ -13,7 +13,7 @@ const Settings = () => {
 
   useEffect(() => {
     // Fetch profile details
-    axios.get(`http://localhost:8080/api/auth/profile/${userId}`)
+    axios.get(`https://amshc-backend.onrender.com/api/auth/profile/${userId}`)
       .then(res => {
         setForm(prev => ({
           ...prev,
@@ -30,7 +30,7 @@ const Settings = () => {
 
   const handleProfileUpdate = async () => {
     try {
-      await axios.put("http://localhost:8080/api/auth/update-profile", {
+      await axios.put("https://amshc-backend.onrender.com/api/auth/update-profile", {
         userId,
         fullName: form.fullName,
         email: form.email,
@@ -49,7 +49,7 @@ const Settings = () => {
 
   const handleChangePassword = async () => {
     try {
-      await axios.post("http://localhost:8080/api/auth/change-password", {
+      await axios.post("https://amshc-backend.onrender.com/api/auth/change-password", {
         userId,
         currentPassword: form.currentPassword,
         newPassword: form.newPassword,
@@ -62,7 +62,7 @@ const Settings = () => {
 
   const handleDeleteAccount = async () => {
     try {
-      await axios.delete(`http://localhost:8080/api/auth/delete-account/${userId}`, {
+      await axios.delete(`https://amshc-backend.onrender.com/api/auth/delete-account/${userId}`, {
         data: {
           email: form.email,
           password: form.currentPassword,
@@ -81,7 +81,7 @@ const Settings = () => {
     formData.append("file", file);
 
     try {
-      await axios.put(`http://localhost:8080/api/auth/upload-avatar/${userId}`, formData, {
+      await axios.put(`https://amshc-backend.onrender.com/api/auth/upload-avatar/${userId}`, formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
       alert("✅ Avatar updated!");

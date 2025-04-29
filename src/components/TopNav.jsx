@@ -20,12 +20,12 @@ function TopNav() {
 
     const fetchProfileAndNotifications = async () => {
       try {
-        const profileRes = await axios.get(`http://localhost:8080/api/auth/profile/${userId}`, {
+        const profileRes = await axios.get(`https://amshc-backend.onrender.com/api/auth/profile/${userId}`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         setProfile(profileRes.data);
 
-        const notifRes = await axios.get(`http://localhost:8080/api/notifications/user/${userId}`, {
+        const notifRes = await axios.get(`https://amshc-backend.onrender.com/api/notifications/user/${userId}`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         const unread = notifRes.data.filter(n => !n.read).length;
@@ -45,7 +45,7 @@ function TopNav() {
   };
 
   const avatarSrc = profile.profilePictureUrl
-    ? `http://localhost:8080/${profile.profilePictureUrl.replace(/\\/g, '/')}`
+    ? `https://amshc-backend.onrender.com/${profile.profilePictureUrl.replace(/\\/g, '/')}`
     : '/default-avatar.png';
 
   return (

@@ -9,7 +9,7 @@ const BookingHistory = () => {
     const patientId = localStorage.getItem("userId"); // 🧠 dynamic patient ID
     const token = localStorage.getItem("token");
 
-    axios.get(`http://localhost:8080/api/appointments/patient/${patientId}`, {
+    axios.get(`https://amshc-backend.onrender.com/api/appointments/patient/${patientId}`, {
       headers: {
         Authorization: `Bearer ${token}`
       }
@@ -21,7 +21,7 @@ const BookingHistory = () => {
   const cancelAppointment = (id) => {
     const token = localStorage.getItem("token");
 
-    axios.put(`http://localhost:8080/api/appointments/cancel/${id}`, {}, {
+    axios.put(`https://amshc-backend.onrender.com/api/appointments/cancel/${id}`, {}, {
       headers: {
         Authorization: `Bearer ${token}`
       }

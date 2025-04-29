@@ -16,7 +16,7 @@ const RegisterDoctor = () => {
   const [message, setMessage] = useState('');
 
   useEffect(() => {
-    axios.get('http://localhost:8080/api/clinics')
+    axios.get('https://amshc-backend.onrender.com/api/clinics')
       .then(res => setClinics(res.data.content || res.data))
       .catch(err => console.error('Failed to fetch clinics', err));
   }, []);
@@ -27,7 +27,7 @@ const RegisterDoctor = () => {
 
   const handleRegister = (e) => {
     e.preventDefault();
-    axios.post('http://localhost:8080/api/auth/register-doctor', form)
+    axios.post('https://amshc-backend.onrender.com/api/auth/register-doctor', form)
       .then(() => {
         setMessage('✅ Doctor registered successfully!');
         setForm({

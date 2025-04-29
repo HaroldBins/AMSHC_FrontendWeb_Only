@@ -23,7 +23,7 @@ const Doctor = () => {
 
         // Check if token exists before making the request
         if (token) {
-          const response = await axios.get("http://localhost:8080/api/doctors", {
+          const response = await axios.get("https://amshc-backend.onrender.com/api/doctors", {
             headers: {
               Authorization: `Bearer ${token}`, // Ensure token is in the request headers
             },
@@ -51,7 +51,7 @@ const Doctor = () => {
       const token = localStorage.getItem("token") // Get token from localStorage
       console.log("Token being sent:", token) // Log the token to check if it's being fetched properly
 
-      const response = await axios.post("http://localhost:8080/api/doctors", doctor, {
+      const response = await axios.post("https://amshc-backend.onrender.com/api/doctors", doctor, {
         headers: {
           Authorization: `Bearer ${token}`, // Ensure token is being sent correctly
         },

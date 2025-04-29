@@ -13,7 +13,7 @@ function Booking() {
   const [success, setSuccess] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const api = "http://localhost:8080";
+  const api = "https://amshc-backend.onrender.com";
   const patientId = localStorage.getItem("userId");
   const token = localStorage.getItem("token");
 
