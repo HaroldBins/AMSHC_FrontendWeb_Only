@@ -57,7 +57,7 @@ function Dashboard() {
                 <span className="mt-2 font-semibold">Manage Doctors</span>
               </Link>
               <Link
-                to="/hospital-city-creator"
+                to="/clinics"
                 className="bg-blue-700 text-white p-5 rounded-lg shadow-lg flex flex-col items-center hover:bg-blue-800 transition"
               >
                 <FaCity size={30} />
