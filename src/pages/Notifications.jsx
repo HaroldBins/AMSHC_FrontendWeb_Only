@@ -58,19 +58,23 @@ const Notifications = () => {
   }
 
   const deleteNotification = (id) => {
-    setDeleteLoading(id)
-    axios
-      .delete(`${baseURL}/api/notifications/${id}?userId=${userId}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      })
+    setDeleteLoading(id);
+  
+    console.log("Sending token for DELETE:", token); // ✅ Properly placed log
+  
+    axios.delete(`${baseURL}/api/notifications/${id}`, {
+      headers: { Authorization: `Bearer ${token}` }
+      // ✅ You can safely remove `withCredentials` since you're not using cookies
+    })
       .then(() => {
-        const updated = notifications.filter((n) => n.id !== id)
-        setNotifications(updated)
-        updateNotificationCount(updated.filter((n) => !n.read).length)
+        const updated = notifications.filter((n) => n.id !== id);
+        setNotifications(updated);
+        updateNotificationCount(updated.filter((n) => !n.read).length);
       })
       .catch((err) => console.error("Failed to delete notification", err))
-      .finally(() => setDeleteLoading(null))
+      .finally(() => setDeleteLoading(null));
   }
+  
 
   const getNotificationIcon = (type) => {
     const iconClass = "h-6 w-6"

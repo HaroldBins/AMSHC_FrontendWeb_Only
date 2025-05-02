@@ -15,6 +15,8 @@ function Clinics() {
 
   const apiUrl = `${process.env.REACT_APP_API_BASE_URL}/api/clinics`
   const token = localStorage.getItem("token")
+  const userRole = localStorage.getItem("role")
+
 
   const fetchClinics = async () => {
     setIsLoading(true)
@@ -151,28 +153,31 @@ function Clinics() {
           <h1 className="text-3xl font-bold text-gray-800">Clinic Management</h1>
           <p className="text-gray-600 mt-1">Add, edit, and manage your healthcare clinics</p>
         </div>
-        <button
-          className="mt-4 md:mt-0 bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-md flex items-center"
-          onClick={() => {
-            resetForm()
-            setIsFormOpen(true)
-          }}
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-4 w-4 mr-2"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <line x1="12" y1="5" x2="12" y2="19"></line>
-            <line x1="5" y1="12" x2="19" y2="12"></line>
-          </svg>
-          Add New Clinic
-        </button>
+        {userRole === "ADMIN" && (
+  <button
+    className="mt-4 md:mt-0 bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-md flex items-center"
+    onClick={() => {
+      resetForm()
+      setIsFormOpen(true)
+    }}
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      className="h-4 w-4 mr-2"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <line x1="12" y1="5" x2="12" y2="19"></line>
+      <line x1="5" y1="12" x2="19" y2="12"></line>
+    </svg>
+    Add New Clinic
+  </button>
+)}
+
       </div>
 
       {/* Form Modal */}
@@ -399,13 +404,18 @@ function Clinics() {
                     <div className="text-gray-500">{clinic.address}</div>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                    <button onClick={() => handleEditClinic(clinic)} className="text-blue-600 hover:text-blue-900 mr-3">
-                      Edit
-                    </button>
-                    <button onClick={() => setShowDeleteConfirm(clinic)} className="text-red-600 hover:text-red-900">
-                      Delete
-                    </button>
-                  </td>
+  {userRole === "ADMIN" && (
+    <>
+      <button onClick={() => handleEditClinic(clinic)} className="text-blue-600 hover:text-blue-900 mr-3">
+        Edit
+      </button>
+      <button onClick={() => setShowDeleteConfirm(clinic)} className="text-red-600 hover:text-red-900">
+        Delete
+      </button>
+    </>
+  )}
+</td>
+
                 </tr>
               ))}
             </tbody>
@@ -443,48 +453,51 @@ function Clinics() {
                   </svg>
                   <span>{clinic.address}</span>
                 </div>
-                <div className="flex justify-end gap-2 pt-2 border-t border-gray-100">
-                  <button
-                    onClick={() => handleEditClinic(clinic)}
-                    className="px-3 py-1.5 text-sm border border-blue-600 text-blue-600 rounded hover:bg-blue-50 flex items-center"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="h-4 w-4 mr-1"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
-                      />
-                    </svg>
-                    Edit
-                  </button>
-                  <button
-                    onClick={() => setShowDeleteConfirm(clinic)}
-                    className="px-3 py-1.5 text-sm border border-red-600 text-red-600 rounded hover:bg-red-50 flex items-center"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="h-4 w-4 mr-1"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-                      />
-                    </svg>
-                    Delete
-                  </button>
-                </div>
+                {userRole === "ADMIN" && (
+  <div className="flex justify-end gap-2 pt-2 border-t border-gray-100">
+    <button
+      onClick={() => handleEditClinic(clinic)}
+      className="px-3 py-1.5 text-sm border border-blue-600 text-blue-600 rounded hover:bg-blue-50 flex items-center"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        className="h-4 w-4 mr-1"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={2}
+          d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
+        />
+      </svg>
+      Edit
+    </button>
+    <button
+      onClick={() => setShowDeleteConfirm(clinic)}
+      className="px-3 py-1.5 text-sm border border-red-600 text-red-600 rounded hover:bg-red-50 flex items-center"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        className="h-4 w-4 mr-1"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={2}
+          d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+        />
+      </svg>
+      Delete
+    </button>
+  </div>
+)}
+
               </div>
             </div>
           ))}

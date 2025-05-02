@@ -56,7 +56,7 @@ const Settings = () => {
       showToast("Please fill in all required fields", "error")
       return
     }
-
+  
     setIsLoading(true)
     try {
       await axios.put(`${baseURL}/api/auth/update-profile`, {
@@ -64,17 +64,21 @@ const Settings = () => {
         fullName: form.fullName,
         email: form.email,
       })
-
-      localStorage.setItem("fullName", form.fullName)
-      localStorage.setItem("email", form.email)
-
-      showToast("Profile updated successfully!")
+  
+      // 🔐 Clear localStorage and force re-login
+      localStorage.clear()
+      showToast("Profile updated successfully! Please log in again.")
+  
+      setTimeout(() => {
+        window.location.href = "/login"
+      }, 2000) // delay a bit for user to read the toast
     } catch (err) {
       showToast("Failed to update profile", "error")
     } finally {
       setIsLoading(false)
     }
   }
+  
 
   const handleChangePassword = async () => {
     if (!form.currentPassword || !form.newPassword) {
@@ -106,11 +110,15 @@ const Settings = () => {
     setIsLoading(true)
     try {
       await axios.delete(`${baseURL}/api/auth/delete-account/${userId}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
         data: {
           email: form.email,
           password: form.currentPassword,
         },
       })
+      
       showToast("Account deleted successfully")
       // Redirect to login page or clear localStorage
       localStorage.clear()

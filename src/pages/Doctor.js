@@ -102,13 +102,16 @@ const Doctor = () => {
             <p className="text-gray-600">Manage and view all healthcare professionals</p>
           </div>
 
-          <button
-            className="mt-4 md:mt-0 bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg flex items-center transition-all shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
-            onClick={() => setIsAddDoctorOpen(true)}
-          >
-            <FaPlus className="mr-2" />
-            Add Doctor
-          </button>
+          {localStorage.getItem("role") === "ADMIN" && (
+  <button
+    className="mt-4 md:mt-0 bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg flex items-center ..."
+    onClick={() => setIsAddDoctorOpen(true)}
+  >
+    <FaPlus className="mr-2" />
+    Add Doctor
+  </button>
+)}
+
         </div>
 
         {/* Main Content */}
