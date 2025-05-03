@@ -15,7 +15,7 @@ function Booking() {
   
 
 
-  const api = process.env.REACT_APP_API_BASE_URL;
+  const api = process.env.REACT_APP_BASE_URL;
   const patientId = localStorage.getItem("userId");
   const token = localStorage.getItem("token");
 

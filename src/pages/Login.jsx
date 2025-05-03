@@ -47,7 +47,7 @@ const Login = () => {
     }
   }
 
-  console.log("✅ ENV:", process.env.REACT_APP_API_BASE_URL)
+  console.log("✅ ENV:", process.env.REACT_APP_BASE_URL)
 
   return (
     <div className="min-h-screen flex flex-col md:flex-row">

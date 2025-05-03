@@ -9,7 +9,7 @@ const BookingHistory = () => {
   const [cancelLoading, setCancelLoading] = useState(null)
   const [showCancelConfirm, setShowCancelConfirm] = useState(null)
   const [filter, setFilter] = useState("all") // all, upcoming, past, cancelled
-  const baseURL = process.env.REACT_APP_API_BASE_URL
+  const baseURL = process.env.REACT_APP_BASE_URL
 
   useEffect(() => {
     const patientId = localStorage.getItem("userId")

@@ -13,7 +13,7 @@ function Clinics() {
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(null)
   const [toast, setToast] = useState({ show: false, message: "", type: "" })
 
-  const apiUrl = `${process.env.REACT_APP_API_BASE_URL}/api/clinics`
+  const apiUrl = `${process.env.REACT_APP_BASE_URL}/api/clinics`
   const token = localStorage.getItem("token")
   const userRole = localStorage.getItem("role")
 

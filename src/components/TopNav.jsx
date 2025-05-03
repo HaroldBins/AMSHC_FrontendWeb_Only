@@ -14,7 +14,7 @@ function TopNav() {
 
   const { notificationCount, updateNotificationCount } = useContext(NotificationContext);
   const [profile, setProfile] = useState({ fullName: '', profilePictureUrl: '' });
-  const baseURL = process.env.REACT_APP_API_BASE_URL;
+  const baseURL = process.env.REACT_APP_BASE_URL;
   
 
   useEffect(() => {

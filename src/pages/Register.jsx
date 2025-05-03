@@ -15,7 +15,7 @@ function Register() {
   const [loading, setLoading] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
-  const baseURL = process.env.REACT_APP_API_BASE_URL || "https://amshc-backend.onrender.com"
+  const baseURL = process.env.REACT_APP_BASE_URL || "https://amshc-backend.onrender.com"
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -28,7 +28,7 @@ function Register() {
     setError("")
 
     // ✅ Log to verify value is picked up
-    console.log("🌐 API URL from env:", process.env.REACT_APP_API_BASE_URL)
+    console.log("🌐 API URL from env:", process.env.REACT_APP_BASE_URL)
 
     try {
       await axios.post(`${baseURL}/api/auth/register`, {

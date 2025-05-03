@@ -4,7 +4,7 @@ import axios from "axios";
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
-  const baseURL = process.env.REACT_APP_API_BASE_URL;
+  const baseURL = process.env.REACT_APP_BASE_URL;
 
 
   const handleSubmit = async (e) => {

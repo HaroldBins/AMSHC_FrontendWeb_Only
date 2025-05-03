@@ -17,7 +17,7 @@ const Messaging = () => {
 
   const getUserDisplayName = (u) => u.name || u.fullName || '';
 
-  const baseURL = process.env.REACT_APP_API_BASE_URL;
+  const baseURL = process.env.REACT_APP_BASE_URL;
 
   useEffect(() => {
     if (!token) return;

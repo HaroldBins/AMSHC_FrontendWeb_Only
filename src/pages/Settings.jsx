@@ -16,7 +16,7 @@ const Settings = () => {
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false)
   const [toast, setToast] = useState({ show: false, message: "", type: "" })
   const [activeTab, setActiveTab] = useState("profile")
-  const baseURL = process.env.REACT_APP_API_BASE_URL
+  const baseURL = process.env.REACT_APP_BASE_URL
 
   useEffect(() => {
     // Fetch profile details

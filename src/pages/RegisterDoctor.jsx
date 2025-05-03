@@ -21,7 +21,7 @@ const RegisterDoctor = () => {
   const [showPassword, setShowPassword] = useState(false)
   const [fetchingClinics, setFetchingClinics] = useState(true)
   const navigate = useNavigate()
-  const baseURL = process.env.REACT_APP_API_BASE_URL || "https://amshc-backend.onrender.com"
+  const baseURL = process.env.REACT_APP_BASE_URL || "https://amshc-backend.onrender.com"
 
   useEffect(() => {
     setFetchingClinics(true)
