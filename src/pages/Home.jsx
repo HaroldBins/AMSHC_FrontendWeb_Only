@@ -2,6 +2,9 @@
 import { useNavigate } from "react-router-dom"
 import doctorImg from "../images/doctor ai.png"
 import logo from "../images/amshc logo.png"
+import { useEffect, useState } from "react"
+import axios from "axios"
+
 
 const Home = () => {
   const navigate = useNavigate()

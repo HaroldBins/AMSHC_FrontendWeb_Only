@@ -51,17 +51,19 @@ function Booking() {
       alert("❗ Please fill in all fields before booking.");
       return;
     }
-
+  
+    console.log("🧠 Booking with patientId:", patientId); // ✅ Add this here
+  
     const appointmentStart = new Date(appointmentTime);
-    const appointmentEnd = new Date(appointmentStart.getTime() + 30 * 60 * 1000); // +30 mins
-
+    const appointmentEnd = new Date(appointmentStart.getTime() + 30 * 60 * 1000);
+  
     const payload = {
       patientId: patientId,
       doctorId: selectedDoctorId,
       appointmentStart,
       appointmentEnd,
     };
-
+  
     try {
       setIsSubmitting(true);
       const response = await fetch(`${api}/api/appointments/book`, {
@@ -72,7 +74,7 @@ function Booking() {
         },
         body: JSON.stringify(payload),
       });
-
+  
       if (response.ok) {
         setSuccess(true);
         alert("✅ Appointment booked!");
@@ -89,6 +91,7 @@ function Booking() {
       setIsSubmitting(false);
     }
   };
+  
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-white p-4 md:p-8">

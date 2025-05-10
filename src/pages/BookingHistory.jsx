@@ -8,24 +8,60 @@ const BookingHistory = () => {
   const [loading, setLoading] = useState(true)
   const [cancelLoading, setCancelLoading] = useState(null)
   const [showCancelConfirm, setShowCancelConfirm] = useState(null)
-  const [filter, setFilter] = useState("all") // all, upcoming, past, cancelled
+  const [filter, setFilter] = useState("all")
+
   const baseURL = process.env.REACT_APP_BASE_URL
+  const role = localStorage.getItem("role") // ✅ Move here
+  const userId = localStorage.getItem("userId")
+  const token = localStorage.getItem("token")
 
   useEffect(() => {
-    const patientId = localStorage.getItem("userId")
-    const token = localStorage.getItem("token")
+    const fetchAppointments = async () => {
+      setLoading(true);
+      let endpoint = "";
+  
+      try {
+        if (role === "DOCTOR") {
+          const doctorRes = await axios.get(`${baseURL}/api/doctors/user/${userId}`, {
+            headers: { Authorization: `Bearer ${token}` },
+          });
+          const doctorId = doctorRes.data.id; // ✅ define before use
+          console.log("Fetched doctorId from userId:", doctorId); // ✅ now valid
+          endpoint = `${baseURL}/api/appointments/doctor/${doctorId}`;
+        }
+         else {
+          endpoint = `${baseURL}/api/appointments/patient/${userId}`;
+        }
+  
+        const res = await axios.get(endpoint, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+  
+        const data = res.data.map((appt) => ({
+          id: appt.id,
+          doctorName: appt.doctorName ?? "",     // use null-coalescing fallback
+          patientName: appt.patientName ?? "",
+          specialization: appt.specialization,
+          appointmentStart: appt.appointmentStart,
+          appointmentEnd: appt.appointmentEnd,
+          status: appt.status,
+        }));
+        
 
-    setLoading(true)
-    axios
-      .get(`${baseURL}/api/appointments/patient/${patientId}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((res) => setAppointments(res.data))
-      .catch((err) => console.error("Error loading history:", err))
-      .finally(() => setLoading(false))
-  }, [baseURL])
+
+        setAppointments(data);
+      } catch (err) {
+        console.error("Error loading history:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+  
+    fetchAppointments();
+  }, [baseURL, role, userId, token]);
+  
+  
+  
 
   const cancelAppointment = (id) => {
     const token = localStorage.getItem("token")
@@ -124,7 +160,8 @@ const BookingHistory = () => {
           <div className="bg-white rounded-lg shadow-xl p-6 w-full max-w-md">
             <h2 className="text-xl font-semibold text-gray-800 mb-2">Cancel Appointment</h2>
             <p className="text-gray-600 mb-4">
-              Are you sure you want to cancel your appointment with Dr. {showCancelConfirm.doctorName} on{" "}
+            Are you sure you want to cancel your appointment with {role === "DOCTOR" ? showCancelConfirm.patientName : `Dr. ${showCancelConfirm.doctorName}`}
+
               {formatDate(showCancelConfirm.appointmentStart)}?
             </p>
             <div className="flex justify-end gap-2">
@@ -330,7 +367,10 @@ const BookingHistory = () => {
                             d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
                           />
                         </svg>
-                        <h3 className="font-semibold text-lg text-gray-800">Dr. {appt.doctorName}</h3>
+                        <h3 className="font-semibold text-lg text-gray-800">
+  {role === "DOCTOR" ? appt.patientName : `Dr. ${appt.doctorName}`}
+</h3>
+
                       </div>
                       <p className="text-gray-600 flex items-center mb-1">
                         <svg

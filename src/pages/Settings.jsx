@@ -19,20 +19,22 @@ const Settings = () => {
   const baseURL = process.env.REACT_APP_BASE_URL
 
   useEffect(() => {
-    // Fetch profile details
     axios
       .get(`${baseURL}/api/auth/profile/${userId}`)
       .then((res) => {
+        const { fullName, email } = res.data;
         setForm((prev) => ({
           ...prev,
-          fullName: localStorage.getItem("fullName") || "",
-          email: localStorage.getItem("email") || "",
-        }))
+          fullName: fullName || "",
+          email: email || "",
+        }));
       })
       .catch((err) => {
-        showToast("Failed to load profile information", "error")
-      })
-  }, [userId, baseURL])
+        console.error("Failed to fetch profile:", err);
+        showToast("Settings updated successfully!", "success");
+      });
+  }, [userId, baseURL]);
+  
 
   useEffect(() => {
     if (toast.show) {
